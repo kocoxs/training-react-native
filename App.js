@@ -1,36 +1,71 @@
 import * as React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { View, Text, Slider, Switch, TextInput  } from 'react-native';
+import AddEntry from './components/AddEntry'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
+import  History from './components/History'
 
-const instructions = Platform.select({
-  ios: `Press Cmd+R to reload,\nCmd+D or shake for dev menu`,
-  android: `Double tap R on your keyboard to reload,\nShake or press menu button for dev menu`,
-});
+let store = createStore(reducer)
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}>Welcome to React Native!</Text>
-      <Text style={styles.instructions}>To get started, edit App.js</Text>
-      <Text style={styles.instructions}>{instructions}</Text>
-    </View>
-  );
+export default class App extends React.Component {
+  render () {
+    return (
+      <Provider store={store}>
+        <View style={{flex:1}}>
+          <History />
+        </View>
+      </Provider>
+    )
+  }
 }
+ /*  */
+/** 
+ * 
+ *  <TouchableHighlight style={ {backgroundColor: '#82445a', padding: 10, borderRadius:10, } }  onPress={this.handlePress} underlayColor='#d42771'>
+          <Text>Click higlight</Text>
+        </TouchableHighlight>
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+        <TouchableOpacity style={ {backgroundColor: '#884455', padding: 10, borderRadius:10, } }  onPress={this.handlePress}>
+          <Text>Click opacity</Text>
+        </TouchableOpacity>
+
+        <TouchableWithoutFeedback onPress={this.handlePress}>
+          <View style={ {backgroundColor: '#a84F55', padding: 10, borderRadius:10, } }>
+            <Text>Click sin feedbac</Text>
+          </View>
+        </TouchableWithoutFeedback>
+
+        <TouchableNativeFeedback onPress={this.handlePress}>
+          <View style={ {backgroundColor: '#ae0F5c', padding: 10, borderRadius:10, } }>
+            <Text>Click nativo feedbac</Text>
+          </View>
+        </TouchableNativeFeedback>
+
+        <Slider 
+          minimumValue={-10}
+          maximumValue={10}
+          step={1}
+          value={this.state.value}
+          onValueChange={(value) => this.setState(() => ({value}))}
+        />
+        <Text>
+          value: {this.state.value}
+        </Text>
+
+
+        <Switch 
+          value={showInput}
+          onValueChange={this.toggle}
+        />
+
+        {
+          showInput === true && (
+            <TextInput 
+              value = {input}
+              onChange = {this.textChange}
+            />
+          )
+        }
+ * 
+ */
