@@ -5,6 +5,7 @@
     "name": "UdaciFitness",
     "slug": "UdaciFitness",
     "version": "1.0.0",
+    "sdkVersion": "35.0.0",
     "platforms": [
       "ios",
       "android",
