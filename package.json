@@ -8,7 +8,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@babel/plugin-transform-react-jsx": "^7.9.4",
     "expo": "^35.0.0",
     "expo-updates": "~0.1.0",
     "react": "~16.9.0",
@@ -21,8 +20,7 @@
     "react-native-web": "~0.11.7",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
-    "udacifitness-calendar": "^11.0.0",
-    "udacifitness-calendar-fix": "^10.1.0"
+    "udacifitness-calendar": "^11.0.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
