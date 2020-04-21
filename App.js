@@ -1,10 +1,46 @@
 import * as React from 'react';
-import { View, Text, Slider, Switch, TextInput  } from 'react-native';
-import AddEntry from './components/AddEntry'
+import { View, Platform, StatusBar } from 'react-native';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { FontAwesome, Ionicons } from '@expo/vector-icons'
+import  Constants  from 'expo-constants'
+
+import AddEntry from './components/AddEntry'
+import History from './components/History'
+import EntryDetail from './components/EntryDetail'
+
 import reducer from './reducers'
-import  History from './components/History'
+
+import { purple, white } from './utils/helpers'
+
+const RouteConfigs = {
+  History:{
+    name: 'History',
+    component: History,
+    options: {
+      tabBarIcon: ({tintColor}) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
+    }
+  },
+  AddEntry:{
+    name: 'Add Entry',
+    component: AddEntry,
+    options: {
+      tabBarIcon: ({tintColor}) => <FontAwesome name='plus-square' size={30} color={tintColor} />
+    }
+  }
+}
+
+function UdaciStatusBar ({backgroundColor, ...props}) {
+  return (
+    <View style={{ height: Constants.statusBarHeight }}>
+      <StatusBar  backgroundColor={backgroundColor} barStyle='default'  {...props} />
+    </View>
+  )
+}
+
+const Tab = createBottomTabNavigator()
 
 let store = createStore(reducer)
 
@@ -12,8 +48,14 @@ export default class App extends React.Component {
   render () {
     return (
       <Provider store={store}>
-        <View style={{flex:1, marginTop:20}}>
-          <History />
+        <View style={{flex:1}}>
+          <UdaciStatusBar backgroundColor={purple} translucent={true} />
+          <NavigationContainer>
+            <Tab.Navigator>
+                <Tab.Screen {...RouteConfigs['History']} />
+                <Tab.Screen {...RouteConfigs['AddEntry']} />
+            </Tab.Navigator>
+          </NavigationContainer>
         </View>
       </Provider>
     )
