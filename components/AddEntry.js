@@ -6,17 +6,25 @@ import {
     Platform,
     StyleSheet 
 } from 'react-native';
-import { getMetricMetaInfo, timeToString, getDailyReminderValue } from '../utils/helpers'
+import { Ionicons } from '@expo/vector-icons'
+import { connect } from 'react-redux'
+import { CommonActions } from '@react-navigation/native';
+
+import { 
+    getMetricMetaInfo, 
+    timeToString, 
+    getDailyReminderValue, 
+    clearLocalNotification, 
+    setLocalNotification 
+} from '../utils/helpers'
+import { submitEntry, removeEntry } from '../utils/api'
+import { white, purple } from '../utils/colors';
+import { addEntry } from '../actions'
+
 import UdaciSlider from './UdaciSlider'
 import UdaciSteper from './UdaciSteper'
 import DateHeader from './DateHeader'
-import { Ionicons } from '@expo/vector-icons'
 import TextButton from './TextButton'
-import { submitEntry, removeEntry } from '../utils/api'
-import { connect } from 'react-redux'
-import { addEntry } from '../actions'
-import { white, purple } from '../utils/colors';
-import { CommonActions } from '@react-navigation/native';
 
 function SubmitBtn ({ onPress }){
     return (
@@ -88,7 +96,8 @@ class AddEntry extends Component {
         //go home
         this.toHome()
         
-        //Notification
+        clearLocalNotification()
+            .then(setLocalNotification)
     }
 
     reset = () => {

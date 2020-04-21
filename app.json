@@ -3,9 +3,23 @@
   "displayName": "UdaciFitness",
   "expo": {
     "name": "UdaciFitness",
+    "orientation": "portrait",
+    "description": "La super descripcion",
     "slug": "UdaciFitness",
     "version": "1.0.0",
     "sdkVersion": "35.0.0",
+    "icon": "https://tylermcginnis.com/udacifitness-512.png",
+    "notification": {
+      "icon": "https://tylermcginnis.com/udacifitness-45.png"
+    },
+    "ios": {
+      "bundleIdentifier": "org.udacifitness.exp"
+    },
+    "android": {
+      "icon": "https://tylermcginnis.com/udacifitness-45.png",
+      "package": "org.kocoxsUdacifitness.exp",
+      "permissions": ["READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE", "CAMERA", "LOCATION"]
+    },
     "platforms": [
       "ios",
       "android",

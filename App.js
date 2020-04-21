@@ -11,6 +11,8 @@ import  Constants  from 'expo-constants'
 import AddEntry from './components/AddEntry'
 import History from './components/History'
 import EntryDetail from './components/EntryDetail'
+import Live from './components/Live'
+import { setLocalNotification } from './utils/helpers'
 
 import reducer from './reducers'
 
@@ -30,6 +32,11 @@ const RouteConfigs = {
     options: {
       tabBarIcon: ({tintColor}) => <FontAwesome name='plus-square' size={30} color={tintColor} />
     }
+  },
+  Live: {
+    name: "Live",
+    component: Live,
+    options: {tabBarIcon: ({ tintColor }) => <Ionicons name='ios-speedometer' size={30} color={tintColor}/>, title: 'Live'} 
   }
 }
 
@@ -47,6 +54,7 @@ const TabNav = () => (
   <Tab.Navigator>
       <Tab.Screen {...RouteConfigs['History']} />
       <Tab.Screen {...RouteConfigs['AddEntry']} />
+      <Tab.Screen {...RouteConfigs['Live']} />
   </Tab.Navigator>
 )
 
@@ -73,6 +81,10 @@ const MainNav = () => (
 let store = createStore(reducer)
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
+
   render () {
     return (
       <Provider store={store}>
