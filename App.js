@@ -4,6 +4,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import  Constants  from 'expo-constants'
 
@@ -42,6 +43,33 @@ function UdaciStatusBar ({backgroundColor, ...props}) {
 
 const Tab = createBottomTabNavigator()
 
+const TabNav = () => (
+  <Tab.Navigator>
+      <Tab.Screen {...RouteConfigs['History']} />
+      <Tab.Screen {...RouteConfigs['AddEntry']} />
+  </Tab.Navigator>
+)
+
+const Stack = createStackNavigator();
+
+const MainNav = () => (
+  <Stack.Navigator headerMode="screen">
+      <Stack.Screen
+          name="Home"
+          component={TabNav}
+          options={{headerShown: false}}/>
+      <Stack.Screen
+          name="EntryDetail"
+          component={EntryDetail}
+          options={{
+              headerTintColor: white, 
+              headerStyle: {
+                  backgroundColor: purple,
+              }
+          }}/>
+  </Stack.Navigator>
+);
+
 let store = createStore(reducer)
 
 export default class App extends React.Component {
@@ -51,10 +79,7 @@ export default class App extends React.Component {
         <View style={{flex:1}}>
           <UdaciStatusBar backgroundColor={purple} translucent={true} />
           <NavigationContainer>
-            <Tab.Navigator>
-                <Tab.Screen {...RouteConfigs['History']} />
-                <Tab.Screen {...RouteConfigs['AddEntry']} />
-            </Tab.Navigator>
+            <MainNav/>
           </NavigationContainer>
         </View>
       </Provider>
